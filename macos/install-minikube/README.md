@@ -5,5 +5,5 @@ Bash script to install minikube on a local macOS cluster. The script assumes tha
 To utilize this script, please follow the below workflow:
 
 (1) Clone the script into your environment.\
-(2) Make sure the script is executable using the command "**chmod +x install-minikube.sh**".\
-(3) Run the script: **./install-minikube.sh**. DO NOT run the script as the root user or with sudo privileges.
+(2) Make sure the script is executable using the command "**chmod +x install_minikube.sh**".\
+(3) Run the script: **./install_minikube.sh**. DO NOT run the script as the root user or with sudo privileges.
