@@ -1,3 +1,5 @@
+# Install minikube on macOS
+
 ### Description
 Bash script to install minikube on a local macOS cluster. The script assumes that the machine meets the minikube system requirements found at https://minikube.sigs.k8s.io/docs/start/.
 
