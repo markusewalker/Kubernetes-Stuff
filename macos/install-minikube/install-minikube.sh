@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Authored by   : Markus Walker
-# Date Modified : 12/07/20
+# Date Modified : 12/17/20
 
 # Description   : To setup kubectl minikube on a local macOS system. This script assumes
 #                 that your system meets the required system requirements. Please verify 
