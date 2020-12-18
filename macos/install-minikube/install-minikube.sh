@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Authored by   : Markus Walker
-# Date Modified : 12/07/20
+# Date Modified : 12/17/20
 
 # Description   : To setup kubectl minikube on a local macOS system. This script assumes
 #                 that your system meets the required system requirements. Please verify 
@@ -86,17 +86,21 @@ while getopts ":h" opt; do
         esac
 done
 
-echo -e "\x1B[96m======================================="
-echo -e "\tInstall minikube on macOS"
-echo -e "=======================================\x1B[0m"
-echo "This script installs kubectl and minikube on a local macOS system."
-echo -e "------------------------------------------------------------------"
+Main() {
+	echo -e "\x1B[96m======================================="
+	echo -e "\tInstall minikube on macOS"
+	echo -e "=======================================\x1B[0m"
+	echo "This script installs kubectl and minikube on a local macOS system."
+	echo -e "------------------------------------------------------------------"
 
-# Update Homebrew, if needed.
-echo -e "Updating Homebrew..."
-brew update
+	# Update Homebrew, if needed.
+	echo -e "Updating Homebrew..."
+	brew update
 
-installKubectl
-installMinikube
-startMinikube
-checkPods
+	installKubectl
+	installMinikube
+	startMinikube
+	checkPods
+}
+
+Main "$@"

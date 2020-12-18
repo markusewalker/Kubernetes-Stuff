@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Authored by    : Markus Walker
-# Date Modified  : 12/8/20
+# Date Modified  : 12/17/20
 
 # Description    : To install K8s tools on an Ubuntu 18.04/20.04 system and to initialize a control plane.
 #		   This script assumes that you meet the system requirements at 
@@ -164,25 +164,30 @@ while getopts ":h" opt; do
         esac
 done
 
-echo -e "\e[96m================================================================"
-echo -e "\t\tSetup Kubernetes on Ubuntu"
-echo -e "================================================================\n"
-echo -e "This script will setup kubeadm, kubectl, kubelet and initialize a control plane."
-echo -e "---------------------------------------------------------------------------------\e[0m\n"
+Main() {
 
-# Update the system, if needed.
-apt update -y
-export SYSTEMD_PAGER=""
+	echo -e "\e[96m================================================================"
+	echo -e "\t\tSetup Kubernetes on Ubuntu"
+	echo -e "================================================================\n"
+	echo -e "This script will setup kubeadm, kubectl, kubelet and initialize a control plane."
+	echo -e "---------------------------------------------------------------------------------\e[0m\n"
 
-read -p "Enter in the non-user account that you would like to have Docker/Kubernetes access: " SUSER
+	# Update the system, if needed.
+	apt update -y
+	export SYSTEMD_PAGER=""
 
-removeDocker
-installDocker
-setupDockerUser
-enableBridgedTraffic
-removeKubernetes
-installKubernetes
-initializeControlPlane
-applyKubeFlannel
-taintMasterNode
-checkPods
+	read -p "Enter in the non-user account that you would like to have Docker/Kubernetes access: " SUSER
+
+	removeDocker
+	installDocker
+	setupDockerUser
+	enableBridgedTraffic
+	removeKubernetes
+	installKubernetes
+	initializeControlPlane
+	applyKubeFlannel
+	taintMasterNode
+	checkPods
+}
+
+Main "$@"

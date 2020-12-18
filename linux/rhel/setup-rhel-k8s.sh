@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Authored by    : Markus Walker
-# Date Modified  : 12/8/20
+# Date Modified  : 12/17/20
 
 # Description    : To install K8s tools on an RHEL 7.x & 8.x system and to initialize a control plane.
 #		   This script assumes that you meet the system requirements at 
@@ -174,25 +174,29 @@ while getopts ":h" opt; do
         esac
 done
 
-echo -e "\e[96m================================================================"
-echo -e "\t\tSetup Kubernetes on RHEL/CentOS"
-echo -e "================================================================\n"
-echo -e "This script will setup kubeadm, kubectl, kubelet and initialize a control plane."
-echo -e "---------------------------------------------------------------------------------\e[0m\n"
+Main() {
+	echo -e "\e[96m================================================================"
+	echo -e "\t\tSetup Kubernetes on RHEL/CentOS"
+	echo -e "================================================================\n"
+	echo -e "This script will setup kubeadm, kubectl, kubelet and initialize a control plane."
+	echo -e "---------------------------------------------------------------------------------\e[0m\n"
 
-# Update the system, if needed.
-yum update -y
-export SYSTEMD_PAGER=""
+	# Update the system, if needed.
+	yum update -y
+	export SYSTEMD_PAGER=""
 
-read -p "Enter in the non-user account that you would like to have Docker/Kubernetes access: " SUSER
+	read -p "Enter in the non-user account that you would like to have Docker/Kubernetes access: " SUSER
 
-removeDocker
-installDocker
-setupDockerUser
-enableBridgedTraffic
-removeKubernetes
-installKubernetes
-initializeControlPlane
-applyKubeFlannel
-taintMasterNode
-checkPods
+	removeDocker
+	installDocker
+	setupDockerUser
+	enableBridgedTraffic
+	removeKubernetes
+	installKubernetes
+	initializeControlPlane
+	applyKubeFlannel
+	taintMasterNode
+	checkPods
+}
+
+Main "$@"
