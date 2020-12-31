@@ -108,7 +108,8 @@ while getopts "hnarp" opt; do
 	case ${opt} in
 		h)
 			usage
-			exit 0 ${BLANK_SPACE};;
+			exit 0 
+			echo ${BLANK_SPACE};;
 		n)
 			getNodes
 			exit 0
