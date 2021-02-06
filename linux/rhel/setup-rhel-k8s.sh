@@ -120,10 +120,10 @@ initializeControlPlane() {
 	echo -e "\nCopying configuration for the ${SUSER} user..."
 	sleep 2
 
-	export RUN_AS_USER="sudo -u ${SUSER}"
+    	export RUN_AS_USER="sudo -u ${SUSER}"
     	${RUN_AS_USER} mkdir -p /home/${SUSER}/.kube
-    	${RUN_AS_USER} cp -i /etc/kubernetes/admin.conf /home/${SUSER}/.kube/config
-    	${RUN_AS_USER} chown $(id -u):$(id -g) /home/${SUSER}/.kube/config
+    	cp -i /etc/kubernetes/admin.conf /home/${SUSER}/.kube/config
+    	chown ${SUSER}:${SUSER} -R /home/${SUSER}/.kube
 }
 
 # Function to apply the Flannel CNI to the newly created K8s cluster.
