@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 12/17/20
+# Date Modified : 2/1/21
 
 # Description   : To provide various kubectl commands to the user such as the following:
 #                 add/remove namespaces, list pods, etc.
@@ -85,11 +85,11 @@ This is an interactive script that will perform the following tasks:
 
 Additionally, you can run each of the above tasks silently rather than interactively. List of silent flags below:
 
-	* -h | --help   -> Usage help
-	* -n | --nodes  -> Get nodes
-	* -a | --add    -> Add nodes
-	* -r | --remove -> Remove nodes
-	* -p | --pods   -> Display pods
+	* -h   -> Usage help
+	* -n   -> Get nodes
+	* -a   -> Add nodes
+	* -r   -> Remove nodes
+	* -p   -> Display pods
 
 Examples of usage:
 
