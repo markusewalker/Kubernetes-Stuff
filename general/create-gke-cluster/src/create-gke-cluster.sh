@@ -8,7 +8,7 @@
 # Function to install gcloud on Debian systems.
 debianInstall() {
     echo -e "\nInstalling prerequisities..."
-    sudo apt-get install apt-transport-https ca-certificates gnupg
+    sudo apt-get install apt-transport-https ca-certificates gnupg -y
 
     echo -e "\nAdding gcloud CLI distribution URI..."
     echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
