@@ -39,4 +39,4 @@ bats test.bats
 ../test/bats/bin/bats test.bats
 ```
 
-![BATS Testing Result](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/general/basic-k8s-commands/bats.jpg)
+![BATS Testing Result](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/general/basic-sysadmin-tasks/bats.jpg)

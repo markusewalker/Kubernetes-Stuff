@@ -6,7 +6,7 @@ Bash script to install a local K8s cluster on an RHEL 7.x/8.x machine. This shou
 
 ### Usage Help
 
-![Image of Usage](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/general/linux/rhel/usage.jpg)
+![Image of Usage](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/linux/rhel/usage.jpg)
 
 ### Getting Started
 To utilize this script, please follow the below workflow:
