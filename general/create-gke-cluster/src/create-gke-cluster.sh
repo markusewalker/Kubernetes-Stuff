@@ -1,11 +1,10 @@
 #!/usr/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 6/28/22
+# Date Modified : 1/30/22
 
 # Description   : To create an GKE cluster using the gcloud CLI.
 
-# Function to install gcloud on Debian systems.
 debianInstall() {
     echo -e "\nInstalling prerequisities..."
     sudo apt-get install apt-transport-https ca-certificates gnupg -y
@@ -23,7 +22,6 @@ debianInstall() {
     gcloud version
 }
 
-# Function to install gcloud on Fedora, RHEL systems.
 fedoraInstall() {
     echo -e "\nAdding gcloud CLI repository..."
     if [[ "${VERSION_ID}" == 8.* ]]; 
@@ -62,7 +60,6 @@ EOM
     gcloud version
 }
 
-# Function to install gcloud on openSUSE, SLES systems.
 suseInstall() {
     echo -e "\nAdding gcloud CLI repository..."
     sudo tee -a /etc/zypp/repos.d/google-cloud-sdk.repo << EOM
@@ -86,7 +83,6 @@ EOM
     gcloud version
 }
 
-# Creates a GKE cluster.
 createGKECluster() {
     # This requires some interaction from the user. The alternative is using a serviceaccounttoken via a .PEM file, so I would rather do this...
     echo -e "\nLogging into GCP..."
@@ -115,8 +111,8 @@ $(basename "$0")
 
 This script will create an Google GKE cluster using the gcloud tool. In addition, it performs the following setup tasks:
 
-    - Install the gcloud tool
-    - Creates the GKE cluster
+    * Install the gcloud tool
+    * Creates the GKE cluster
 
 This script assumes that the tool kubectl is already installed on the client machine.
 
@@ -152,16 +148,11 @@ Main() {
     echo -e "This script will create an Google GKE cluster."
     echo -e "-----------------------------------------------\x1B[0m"
 
-    echo -e "\nSourcing the OS and version of the Linux distro..."
     . /etc/os-release
 
-    if [[ "${ID}" == "ubuntu" || "${ID}" == "debian" ]]; then
-        debianInstall
-    elif [[ "${ID}" == "rhel" || "${ID}" == "fedora"  ]]; then
-        fedoraInstall
-    elif [[ "${ID}" == "opensuse-leap" ]]; then
-        suseInstall
-    fi
+    [[ "${ID}" == "ubuntu" || "${ID}" == "debian" ]] && debianInstall
+    [[ "${ID}" == "rhel" || "${ID}" == "fedora"  ]] && fedoraInstall
+    [[ "${ID}" == "opensuse-leap" || "${ID}" == "sles" ]] && suseInstall
 
     # Export variables to be used in the createGKECluster() function. You will need to fill these in appropriately.
     export PROJECT_ID=""

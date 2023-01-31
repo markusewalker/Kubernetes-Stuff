@@ -21,14 +21,18 @@ If you choose to install BATS directly on your system, following this documentat
 
 In the `create-gke-cluster` folder, run the following commands:
 
-`git init` (May not be needed...) \
-`git submodule add https://github.com/bats-core/bats-core.git test/bats`\
-`git submodule add https://github.com/bats-core/bats-support.git test/test_helper/bats-support`\
-`git submodule add https://github.com/bats-core/bats-assert.git test/test_helper/bats-assert`
+```
+git init
+git submodule add https://github.com/bats-core/bats-core.git test/bats
+git submodule add https://github.com/bats-core/bats-support.git test/test_helper/bats-support
+git submodule add https://github.com/bats-core/bats-assert.git test/test_helper/bats-assert
+```
 
 Once done, navigate to the `create-gke-cluster/src` folder and perform one of the following commands:
 
-`bats test.bats` \
-`../test/bats/bin/bats test.bats`
+```
+bats test.bats
+../test/bats/bin/bats test.bats
+```
 
 ![BATS Testing Result](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/general/create-gke-cluster/bats.jpg)

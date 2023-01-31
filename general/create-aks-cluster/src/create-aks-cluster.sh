@@ -1,17 +1,15 @@
 #!/usr/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 6/28/22
+# Date Modified : 1/30/23
 
 # Description   : To create an AKS cluster using the az CLI.
 
-# Function to install az on Debian systems.
 debianInstall() {
     echo -e "\nInstalling Azure CLI..."
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 }
 
-# Function to install az on Fedora, RHEL systems.
 fedoraInstall() {
     echo -e "\nImporting Microsoft repository key..."
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -33,7 +31,6 @@ fedoraInstall() {
     sudo dnf install azure-cli -y
 }
 
-# Function to install az on openSUSE, SLES systems.
 suseInstall() {
     echo -e "\nInstalling curl..."
     sudo zypper install -y curl
@@ -45,13 +42,11 @@ suseInstall() {
     sudo zypper install -y azure-cli
 }
 
-# Function to install az on macOS systems.
 macInstall() {
     echo -e "\nInstalling Azure CLI..."
     brew update && brew install azure-cli
 }
 
-# Create an AKS cluster.
 createAKSCluster() {
     # There isn't a good way to login silently while preserving the username....so this has to be a bit interactive to avoid permission denial error.
     echo -e "\nLogging into Azure..."
@@ -74,8 +69,8 @@ $(basename "$0")
 
 This script will create an Azure AKS cluster using the az tool. In addition, it performs the following setup tasks:
 
-    - Install the az tool
-    - Creates the AKS cluster
+    * Install the az tool
+    * Creates the AKS cluster
 
 This script assumes that the tool kubectl is already installed on the client machine.
 
@@ -114,16 +109,12 @@ Main() {
     OS=`uname -s`
 
     if [[ "${OS}" == "Linux" ]]; then
-        echo -e "\nSourcing the OS and version of the Linux distro..."
         . /etc/os-release
 
-        if [[ "${ID}" == "ubuntu" || "${ID}" == "debian" ]]; then
-            debianInstall
-        elif [[ "${ID}" == "rhel" || "${ID}" == "fedora"  ]]; then
-            fedoraInstall
-        elif [[ "${ID}" == "opensuse-leap" ]]; then
-            suseInstall
-        fi
+        [[ "${ID}" == "ubuntu" || "${ID}" == "debian" ]] && debianInstall
+        [[ "${ID}" == "rhel" || "${ID}" == "fedora"  ]] && fedoraInstall
+        [[ "${ID}" == "opensuse-leap" || "${ID}" == "sles" ]] && suseInstall
+        
     elif [[ "${OS}" == "Darwin" ]]; then
         macInstall
     fi
