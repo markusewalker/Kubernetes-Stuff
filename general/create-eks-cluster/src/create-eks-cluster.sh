@@ -1,11 +1,10 @@
 #!/usr/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 6/28/22
+# Date Modified : 1/30/23
 
 # Description   : To create an EKS cluster using eksctl.
 
-# Install eksctl on a macOS client machine.
 macosEKS() {
 	echo -e "\nVerifying that Homebrew is installed..."
 	which brew
@@ -35,7 +34,6 @@ macosEKS() {
 	fi
 }
 
-# Install eksctl on a Linux client machine.
 linuxEKS() {
 	echo -e "\nDownload latest version of eksctl..."
 	curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
@@ -47,7 +45,6 @@ linuxEKS() {
 	eksctl version
 }
 
-# Install AWS CLI on a macOS machine.
 macAWSCLI() {
     echo -e "\nDownloading the AWS CLI..."
     curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
@@ -59,7 +56,6 @@ macAWSCLI() {
     aws --version
 }
 
-# Install AWS CLI on a Linux machine.
 linuxAWSCLI() {
     echo -e "\nDownloading the AWS CLI..."
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -74,7 +70,6 @@ linuxAWSCLI() {
     aws --version
 }
 
-# Create an EKS cluster.
 createEKSCluster() {
     echo -e "\nConfiguring AWS credentials..."
     aws configure set aws_access_key_id "${ACCESS_KEY_ID}"
@@ -100,10 +95,10 @@ $(basename "$0")
 
 This script will create an Amazon EKS cluster using the eksctl tool. In addition it performs the following setup tasks:
 
-    - Install the eksctl tool
-    - Install the AWS CLI
-    - Configures AWS credentials
-    - Create an EKS cluster
+    * Install the eksctl tool
+    * Install the AWS CLI
+    * Configures AWS credentials
+    * Create an EKS cluster
 
 This script assumes that the tools kubectl and unzip are already installed on the client machine.
 

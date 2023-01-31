@@ -1,45 +1,36 @@
 #!/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 2/5/21
+# Date Modified : 1/30/23
 
 # Description   : To remove a worker node from the K8s cluster.
 
-if [[ $(id -u) -ne 0 ]];
-then
-   echo "ERROR. Must be root or have sudo privileges!" 2>&1
-   exit 1
-fi
-
 displayNodes() {
 	echo -e "\nDisplaying nodes in the K8s cluster..."
-	sleep 3
-
 	kubectl get nodes
 }
 
 removeNode() {
 	echo -e "\nRemoving worker node ${NODE}..."
-	sleep 3
 
-	kubectl drain ${NODE} --ignore-daemonsets -delete-emptydir-data
+	kubectl drain ${NODE} --ignore-daemonsets --delete-emptydir-data
 	kubectl uncordon ${NODE}
 	kubectl delete node ${NODE}
 
 	echo -e "\nDisplaying K8s cluster..."
-	sleep 3
+	kubectl get nodes
 }
 
 usage() {
 	cat << EOF
--------------------------
-Remove Worker Node Usage
--------------------------
+
+$(basename $0)
+
 This is an interactive script that will remove a worker node from your K8s cluster. It performs the following tasks:
 
-	- Displays the current nodes in the K8s cluster
-	- Prompts which worker node to remove
-	- Drains, uncordon and deletes the worker node
+	* Displays the current nodes in the K8s cluster
+	* Prompts which worker node to remove
+	* Drains, uncordon and deletes the worker node
 
 Examples of usage:
 
@@ -48,7 +39,6 @@ Examples of usage:
 EOF
 }
 
-# Get the flag that can be ran against the script.
 while getopts ":h" opt; do
 	case ${opt} in
 		h)
@@ -63,9 +53,9 @@ while getopts ":h" opt; do
 done
 
 Main() {
-	echo -e "\x1B[96m================================================================"
+	echo -e "\x1B[96m===================================================================="
 	echo -e "\t\tRemove Worker Node From Cluster"
-	echo -e "================================================================\n"
+	echo -e "===================================================================="
 	echo -e "This script will remove a worker node from your Kubernetes cluster."
 	echo -e "-------------------------------------------------------------------\x1B[0m\n"
 
