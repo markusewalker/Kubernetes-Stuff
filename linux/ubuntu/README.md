@@ -6,7 +6,7 @@ Bash script to install a local K8s cluster on a supported Ubuntu machine.
 
 ### Usage Help
 
-![Image of Usage](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/general/linux/ubuntu/usage.jpg)
+![Image of Usage](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/linux/ubuntu/usage.jpg)
 
 ### Getting Started
 To utilize this script, please follow the below workflow:

@@ -5,7 +5,7 @@ Bash script to install minikube on a local macOS cluster. The script assumes tha
 
 ### Usage Help
 
-![Image of Usage](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/general/linux/rhel/usage.jpg)
+![Image of Usage](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/macos/install-minikube/usage.jpg)
 
 ### Getting Started
 To utilize this script, please follow the below workflow:
