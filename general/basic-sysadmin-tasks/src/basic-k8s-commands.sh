@@ -104,13 +104,14 @@ while getopts "hnarp" opt; do
        	 esac
 done
 
-echo -e "\x1B[96m================================================================"
-echo -e "\t\tBasic Kubernetes SysAdmin Commands"
-echo -e "================================================================\n"
-echo -e "This script will perform various K8s commands depending on what the user specifies."
-echo -e "-----------------------------------------------------------------------------------\x1B[0m\n"
-
 Main() {
+	
+	echo -e "\x1B[96m================================================================"
+	echo -e "\t\tBasic Kubernetes SysAdmin Commands"
+	echo -e "================================================================\n"
+	echo -e "This script will perform various K8s commands depending on what the user specifies."
+	echo -e "-----------------------------------------------------------------------------------\x1B[0m\n"
+	
 	choices
 
 	INPUT="yes"

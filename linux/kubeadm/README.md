@@ -1,8 +1,8 @@
-# Setup single-node Kubernetes Cluster
+# Setup Kubernetes Cluster through kubeadm
 
 ### Description
 
-Bash script to install a multi-node Kubernetes cluster on a supported Ubuntu or RHEL distro using kubeadm.
+Bash script to install a multi-node Kubernetes cluster on a supported SUSE, Ubuntu or RHEL distro using kubeadm.
 
 ### Usage Help
 
