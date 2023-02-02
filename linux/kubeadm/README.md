@@ -6,7 +6,7 @@ Bash script to install a multi-node Kubernetes cluster on a supported Ubuntu or 
 
 ### Usage Help
 
-![Image of Usage](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/kubeadm/usage.jpg)
+![Image of Usage](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/linux/kubeadm/usage.jpg)
 
 ### Getting Started
 To utilize this script, please follow the below workflow:
@@ -36,6 +36,6 @@ bats test.bats
 ../test/bats/bin/bats test.bats
 ```
 
-![BATS Server Testing Result](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/kubeadm/bats-server.jpg)
+![BATS Server Testing Result](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/linux/kubeadm/bats-server.jpg)
 
-![BATS Worker Testing Result](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/kubeadm/bats-worker.jpg)
+![BATS Worker Testing Result](https://github.com/markusewalker/Kubernetes-Stuff/blob/main/linux/kubeadm/bats-worker.jpg)
