@@ -6,6 +6,12 @@
 # Description    : To install/configure a multi-node K8s cluster using kubeadm.
 
 WORKER_NODE=false
+export SYSTEMD_PAGER=""
+export USER=""
+export GROUP=""
+export SSH_KEY=""
+export SERVER_NODE=""
+
 . /etc/os-release
 
 removeDocker() {
@@ -244,13 +250,6 @@ Main() {
 	echo -e "================================================================"
 	echo -e "This script will setup a Kubernetes cluster using kubeadm."
 	echo -e "--------------------------------------------------------------\e[0m"
-
-	export SYSTEMD_PAGER=""
-	export USER=""
-	export GROUP=""
-	export SSH_KEY=""
-	export SERVER_NODE=""
-	export WORKER_NODE=""
 
 	removeDocker
 	installDocker
