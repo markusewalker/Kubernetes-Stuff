@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Authored by    : Markus Walker
-# Date Modified  : 2/2/23
+# Date Modified  : 2/3/23
 
-# Description    : To install/configure a multi-node K8s cluster.
+# Description    : To install/configure a multi-node K8s cluster using kubeadm.
 
 WORKER_NODE=false
+. /etc/os-release
 
 removeDocker() {
 	echo -e "\nRemoving any lingering Docker installations..."
@@ -126,17 +127,17 @@ EOF
 		CNI_PLUGINS_VERSION="v1.1.1"
 		ARCH="amd64"
 		DEST="/opt/cni/bin"
-		sudo mkdir -p "$DEST"
-		curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
+		sudo mkdir -p ${DEST}
+		curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C ${DEST} -xz
 		
 		DOWNLOAD_DIR="/usr/local/bin"
-		sudo mkdir -p "$DOWNLOAD_DIR"
+		sudo mkdir -p ${DOWNLOAD_DIR}
 		
 		CRICTL_VERSION="v1.26.0"
-		curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
+		curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C ${DOWNLOAD_DIR} -xz
 		
-		RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
-		cd $DOWNLOAD_DIR
+		RELEASE=$(curl -sSL https://dl.k8s.io/release/stable.txt)
+		cd ${DOWNLOAD_DIR}
 		sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
 		sudo chmod +x {kubeadm,kubelet}
 		
@@ -222,7 +223,6 @@ while getopts ":hw" opt; do
 			exit 0;;
 		w)
 			WORKER_NODE=true
-			. /etc/os-release
 			removeDocker
 			installDocker
 			setupDockerUser
@@ -232,7 +232,7 @@ while getopts ":hw" opt; do
 			joinWorkerNodes
 			exit 0;;
 		*)
-			echo "Invalid option: $OPTARG. Valid option(s) are [-h]." 2>&1
+			echo "Invalid option: $OPTARG. Valid option(s) are [-h], [-w]." 2>&1
 			exit 1;;
 	esac
 done
@@ -251,8 +251,6 @@ Main() {
 	export SSH_KEY=""
 	export SERVER_NODE=""
 	export WORKER_NODE=""
-
-	. /etc/os-release
 
 	removeDocker
 	installDocker
