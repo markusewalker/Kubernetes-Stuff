@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # Authored by   : Markus Walker
-# Date Modified : 1/30/23
-
 # Description   : To setup kubectl minikube on a local macOS system.
 
 if [[ $(id -u) == 0 ]]; 
@@ -40,8 +38,10 @@ checkPods() {
 
 usage() {
 	cat << EOF
-
-$(basename $0)
+	
+=======================================
+	Install minikube on macOS
+=======================================
 
 This script will install kubectl and minikube on your local macOS cluster. This script assumes Homebrew is installed.
 
@@ -68,12 +68,6 @@ while getopts ":h" opt; do
 done
 
 Main() {
-	echo -e "\x1B[96m======================================="
-	echo -e "\tInstall minikube on macOS"
-	echo -e "=======================================\x1B[0m"
-	echo -e "This script installs kubectl and minikube on a local macOS system."
-	echo -e "--------------------------------------------------------------------"
-
 	installKubectl
 	installMinikube
 	startMinikube

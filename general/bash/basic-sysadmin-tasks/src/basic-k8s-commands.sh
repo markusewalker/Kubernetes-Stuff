@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 1/30/23
-
 # Description   : To perform basic kubectl commands.
 
 choices() {
@@ -48,7 +46,9 @@ displayPods() {
 usage() {
 	cat << EOF
 
-$(basename $0)
+================================================================
+		Basic Kubernetes SysAdmin Commands
+================================================================
 
 This script will perform the following tasks:
 
@@ -105,13 +105,6 @@ while getopts "hnarp" opt; do
 done
 
 Main() {
-	
-	echo -e "\x1B[96m================================================================"
-	echo -e "\t\tBasic Kubernetes SysAdmin Commands"
-	echo -e "================================================================\n"
-	echo -e "This script will perform various K8s commands depending on what the user specifies."
-	echo -e "-----------------------------------------------------------------------------------\x1B[0m\n"
-	
 	choices
 
 	INPUT="yes"

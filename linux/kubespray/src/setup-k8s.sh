@@ -1,9 +1,17 @@
 #!/bin/bash
 
 # Authored by    : Markus Walker
-# Date Modified  : 2/3/23
-
 # Description    : To install/configure a multi-node K8s cluster using kubespray.
+
+NODE1_PRIVATE_IP=""
+NODE1_PUBLIC_IP=""
+NODE2_PRIVATE_IP=""
+NODE2_PUBLIC_IP=""
+NODE3_PRIVATE_IP=""
+NODE3_PUBLIC_IP=""
+SSH_KEY=""
+USER=""
+GROUP=""
 
 . /etc/os-release
 
@@ -118,7 +126,10 @@ checkStatus() {
 usage() {
 	cat << EOF
 
-$(basename $0)
+   
+=========================================
+     Setup multi-node K8s cluster
+=========================================    
 
 This script will install a multi-node K8s cluster on an SUSE, Ubuntu or RHEL node through kubespray. This
 
@@ -147,23 +158,6 @@ while getopts ":h" opt; do
 done
 
 Main() {
-    
-    echo -e "\e[96m================================================================"
-    echo -e "\t\tSetup multi-node K8s cluster"
-    echo -e "================================================================"
-    echo -e "This script will setup a Kubernetes cluster using kubespray."
-    echo -e "--------------------------------------------------------------\e[0m"
-    
-    export NODE1_PRIVATE_IP=""
-    export NODE1_PUBLIC_IP=""
-    export NODE2_PRIVATE_IP=""
-    export NODE2_PUBLIC_IP=""
-    export NODE3_PRIVATE_IP=""
-    export NODE3_PUBLIC_IP=""
-    export SSH_KEY=""
-    export USER=""
-    export GROUP=""
-    
     prereqs
     deploy
     checkStatus

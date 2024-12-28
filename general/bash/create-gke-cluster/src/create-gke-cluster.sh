@@ -1,9 +1,15 @@
 #!/usr/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 1/30/22
-
 # Description   : To create an GKE cluster using the gcloud CLI.
+
+PROJECT_ID=""
+CLUSTER_NAME=""
+VERSION=""
+ZONE=""
+NUM_NODES=
+MACHINE_TYPE=""
+CRED_FILE=""
 
 debianInstall() {
     echo -e "\nInstalling prerequisities..."
@@ -34,7 +40,7 @@ fedoraInstall() {
         gpgcheck=1
         repo_gpgcheck=0
         gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-            https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOM
 	elif [[ "${VERSION_ID}" == 7.* ]]; 
 	then
@@ -46,7 +52,7 @@ EOM
         gpgcheck=1
         repo_gpgcheck=0
         gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-            https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOM
 	fi
 
@@ -70,7 +76,7 @@ suseInstall() {
         gpgcheck=1
         repo_gpgcheck=1
         gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-            https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOM
 
     echo -e "\nRefreshing zypper..."
@@ -84,9 +90,8 @@ EOM
 }
 
 createGKECluster() {
-    # This requires some interaction from the user. The alternative is using a serviceaccounttoken via a .PEM file, so I would rather do this...
     echo -e "\nLogging into GCP..."
-    gcloud auth login --no-launch-browser
+    gcloud auth login --cred-file="${CRED_FILE}"
 
     echo -e "\nSetting project..."
     gcloud config set project "${PROJECT_ID}"
@@ -98,7 +103,7 @@ createGKECluster() {
                                      --num-nodes "${NUM_NODES}" \
                                      --machine-type "${MACHINE_TYPE}" \
                                      --shielded-secure-boot \
-				     --shielded-integrity-monitoring
+                                     --shielded-integrity-monitoring
 
     echo -e "\nVerifying the GKE cluster was created..."
     kubectl get nodes
@@ -107,7 +112,9 @@ createGKECluster() {
 usage() {
 	cat << EOF
 
-$(basename "$0")
+========================================
+         Create GKE Cluster
+========================================
 
 This script will create an Google GKE cluster using the gcloud tool. In addition, it performs the following setup tasks:
 
@@ -142,25 +149,11 @@ while getopts "h" opt; do
 done
 
 Main() {
-    echo -e "\x1B[96m========================================"
-    echo -e "\tCreate GKE Cluster"
-    echo -e "========================================"
-    echo -e "This script will create an Google GKE cluster."
-    echo -e "-----------------------------------------------\x1B[0m"
-
     . /etc/os-release
 
     [[ "${ID}" == "ubuntu" || "${ID}" == "debian" ]] && debianInstall
     [[ "${ID}" == "rhel" || "${ID}" == "fedora"  ]] && fedoraInstall
     [[ "${ID}" == "opensuse-leap" || "${ID}" == "sles" ]] && suseInstall
-
-    # Export variables to be used in the createGKECluster() function. You will need to fill these in appropriately.
-    export PROJECT_ID=""
-    export CLUSTER_NAME=""
-    export VERSION=""
-    export ZONE=""
-    export NUM_NODES=
-    export MACHINE_TYPE=""
 
     createGKECluster
 }

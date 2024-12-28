@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 1/30/23
-
 # Description   : To remove a worker node from the K8s cluster.
 
 displayNodes() {
@@ -24,7 +22,9 @@ removeNode() {
 usage() {
 	cat << EOF
 
-$(basename $0)
+===================================================
+	 Remove Worker Node From Cluster
+===================================================
 
 This is an interactive script that will remove a worker node from your K8s cluster. It performs the following tasks:
 
@@ -53,16 +53,10 @@ while getopts ":h" opt; do
 done
 
 Main() {
-	echo -e "\x1B[96m===================================================================="
-	echo -e "\t\tRemove Worker Node From Cluster"
-	echo -e "===================================================================="
-	echo -e "This script will remove a worker node from your Kubernetes cluster."
-	echo -e "-------------------------------------------------------------------\x1B[0m\n"
-
 	displayNodes
 
 	read -p "Please enter the node you wish to remove: " NODE
-        echo -e "You selected to remove worker node: ${NODE}"
+	echo -e "You selected to remove worker node: ${NODE}"
 
 	removeNode
 }

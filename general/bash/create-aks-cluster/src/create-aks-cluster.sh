@@ -1,9 +1,16 @@
 #!/usr/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 1/30/23
-
 # Description   : To create an AKS cluster using the az CLI.
+
+OS=`uname -s`
+RESOURCE_GROUP=""
+CLUSTER_NAME=""
+NODE_COUNT=""
+NODE_SIZE=""
+APP_ID=""
+CLIENT_SECRET=""
+TENANT_ID=""
 
 debianInstall() {
     echo -e "\nInstalling Azure CLI..."
@@ -48,9 +55,8 @@ macInstall() {
 }
 
 createAKSCluster() {
-    # There isn't a good way to login silently while preserving the username....so this has to be a bit interactive to avoid permission denial error.
     echo -e "\nLogging into Azure..."
-    az login
+    az login --service-principal --username "${APP_ID}" --password "${CLIENT_SECRET}" --tenant "${TENANT_ID}"
 
     echo -e "\nCreating AKS cluster..."
     az aks create --resource-group "${RESOURCE_GROUP}" --name "${CLUSTER_NAME}" --node-count "${NODE_COUNT}" --node-vm-size "${NODE_SIZE}" --enable-addons monitoring --generate-ssh-keys
@@ -65,7 +71,9 @@ createAKSCluster() {
 usage() {
 	cat << EOF
 
-$(basename "$0")
+========================================
+         Create AKS Cluster
+========================================
 
 This script will create an Azure AKS cluster using the az tool. In addition, it performs the following setup tasks:
 
@@ -100,14 +108,6 @@ while getopts "h" opt; do
 done
 
 Main() {
-    echo -e "\x1B[96m========================================"
-    echo -e "\tCreate AKS Cluster"
-    echo -e "========================================"
-    echo -e "This script will create an Azure AKS cluster."
-    echo -e "-----------------------------------------------\x1B[0m"
-
-    OS=`uname -s`
-
     if [[ "${OS}" == "Linux" ]]; then
         . /etc/os-release
 
@@ -118,12 +118,6 @@ Main() {
     elif [[ "${OS}" == "Darwin" ]]; then
         macInstall
     fi
-
-    # Export variables to be used in the createAKSCluster() function. You will need to fill these in appropriately.
-    export RESOURCE_GROUP=""
-    export CLUSTER_NAME=""
-    export NODE_COUNT=
-    export NODE_SIZE=""
 
     createAKSCluster
 }

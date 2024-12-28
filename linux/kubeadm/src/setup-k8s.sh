@@ -1,16 +1,14 @@
 #!/bin/bash
 
 # Authored by    : Markus Walker
-# Date Modified  : 2/3/23
-
 # Description    : To install/configure a multi-node K8s cluster using kubeadm.
 
 WORKER_NODE=false
-export SYSTEMD_PAGER=""
-export USER=""
-export GROUP=""
-export SSH_KEY=""
-export SERVER_NODE=""
+SYSTEMD_PAGER=""
+USER=""
+GROUP=""
+SSH_KEY=""
+SERVER_NODE=""
 
 . /etc/os-release
 
@@ -198,7 +196,9 @@ joinWorkerNodes() {
 usage() {
 	cat << EOF
 
-$(basename $0)
+========================================================
+		Setup multi-node K8s cluster
+========================================================
 
 This script will install a multi-node K8s cluster on an SUSE, Ubuntu or RHEL node through kubeadm. You must meet the
 
@@ -244,13 +244,6 @@ while getopts ":hw" opt; do
 done
 
 Main() {
-
-	echo -e "\e[96m================================================================"
-	echo -e "\t\tSetup multi-node K8s cluster"
-	echo -e "================================================================"
-	echo -e "This script will setup a Kubernetes cluster using kubeadm."
-	echo -e "--------------------------------------------------------------\e[0m"
-
 	removeDocker
 	installDocker
 	setupDockerUser

@@ -1,9 +1,20 @@
 #!/usr/bin/bash
 
 # Authored By   : Markus Walker
-# Date Modified : 1/30/23
-
 # Description   : To create an EKS cluster using eksctl.
+
+OS=`uname -s`
+ACCESS_KEY_ID=""
+SECRET_ACCESS_KEY=""
+AWS_DEFAULT_REGION=""
+VERSION=""
+NAME=""
+NODE_GROUP=""
+NODE_TYPE=""
+NODES=""
+NODES_MIN=""
+NODES_MAX=""
+VPC_PUBLIC_SUBNETS=""
 
 macosEKS() {
 	echo -e "\nVerifying that Homebrew is installed..."
@@ -91,7 +102,9 @@ createEKSCluster() {
 usage() {
 	cat << EOF
 
-$(basename "$0")
+========================================
+          Create EKS Cluster
+========================================
 
 This script will create an Amazon EKS cluster using the eksctl tool. In addition it performs the following setup tasks:
 
@@ -128,14 +141,6 @@ while getopts "h" opt; do
 done
 
 Main() {
-    echo -e "\x1B[96m========================================"
-    echo -e "\tCreate EKS Cluster"
-    echo -e "========================================"
-    echo -e "This script will create an Amazon EKS cluster."
-    echo -e "-----------------------------------------------\x1B[0m"
-
-    OS=`uname -s`
-
 	if [[ "${OS}" = "Darwin" ]]; then
 		macosEKS
         macAWSCLI
@@ -143,19 +148,6 @@ Main() {
 		linuxEKS
         linuxAWSCLI
 	fi
-
-    # Export variables to be used in the createEKSCluster() function. You will need to fill these values in appropriately.
-    export ACCESS_KEY_ID=""
-    export SECRET_ACCESS_KEY=""
-    export AWS_DEFAULT_REGION=""
-    export VERSION=""
-    export NAME=""
-    export NODE_GROUP=""
-    export NODE_TYPE=""
-    export NODES=
-    export NODES_MIN=
-    export NODES_MAX=
-    export VPC_PUBLIC_SUBNETS=""
 
     createEKSCluster
 }
