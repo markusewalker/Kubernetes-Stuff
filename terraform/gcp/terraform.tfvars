@@ -1,0 +1,9 @@
+credentials_file = ""
+project_id       = ""
+region           = ""
+account_id       = ""
+display_name     = ""
+gke_cluster_name = ""
+node_count       = 3
+node_pool_name   = ""
+machine_type     = ""
