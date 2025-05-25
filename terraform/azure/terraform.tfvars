@@ -1,0 +1,13 @@
+client_id           = ""
+client_secret       = ""
+subscription_id     = ""
+tenant_id           = ""
+resource_group_name = ""
+location            = ""
+cluster_name        = ""
+dns_prefix          = ""
+node_pool_name      = ""
+node_count          = 3
+vm_size             = ""
+identity_type       = "SystemAssigned"
+environment         = ""
